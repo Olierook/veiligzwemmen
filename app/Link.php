@@ -16,7 +16,7 @@ class Link extends Model
   protected $table = "links";
 
   protected $fillable = [
-      'user_id', 'device_id'
+      'user_id', 'device_id', 'alert'
   ];
 
   /**

@@ -27,37 +27,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function jsonfx()
-    // {
-    //   $modulejson = array();
-    //   $usr = \Auth::user();
-    //   $cijfers = $usr->cijfers()->where('user_id', $usr->id)->get();
-    //   foreach ($cijfers as $cif) {
-    //     $vaardigheden= array();
-    //     $mod = $cif->module()->where('id', $cif->module_id)->get()[0];
-    //     $vaardigheid = $mod->vaardigheid()->where('module_id', $mod->id)->get();
-    //     foreach ($vaardigheid as $vhd) {
-    //       array_push($vaardigheden, $vhd->vaardigheden);
-    //     }
-    //     $part = array(
-    //       "module" => $mod->modulenaam,
-    //       "cijfer" => $cif->cijfer,
-    //       "vaardigheden" => $vaardigheden
-    //     );
-    //     array_push($modulejson, $part);
-    //   }
-    //   if($par !== false){
-    //     $json = json_encode($modulejson[$par]);
-    //   }else{
-    //     $json = json_encode($modulejson);
-    //   }
-    //   return $json;
-    // }
 
+    public function firstlogin(){
+      if(Auth::user()->hasRole('parent')){
+        $linked_devices = Auth::user()->userLink()->where('user_id', Auth::user()->id)->first();
+        if ($linked_devices == null) {
+          return view('home')->with('wrongCode', null);
+        }
+        return redirect('/maps');
+      }elseif (Auth::user()->hasRole('guard')){
+        return redirect('/fullmap');
+      }elseif (Auth::user()->hasRole('admin')){
+        return redirect('/adminhome');
+      }else{
+        return back();
+
+      }
+    }
 
     public function index()
     {
-      return view('home')->with('wrongCode', null);
+        return view('home')->with('wrongCode', null);
     }
 
     public function maps(){

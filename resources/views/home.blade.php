@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form class="form" method="post" action="{{ url('/link')}}">
+                    <form class="form" method="post" action="{{ url('/home/wrong_code')}}">
                       {{csrf_field()}}
                       <div class="form-group text-center">
                         <label for="code">Voer uw code in</label>

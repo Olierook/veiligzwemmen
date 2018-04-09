@@ -94,7 +94,7 @@
       </div>
       <div class="floating-panel" id="addcode">
         Nog een bandje toevoegen<br>
-        <a href='/home' class='btn btn-primary'><i class="fas fa-plus"></i></a>
+        <a href='/link' class='btn btn-primary'><i class="fas fa-plus"></i></a>
       </div>
       <div class="floating-panel" id="logout">
         Uitloggen<br>
@@ -138,12 +138,25 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         setMarkers();
+        // setInterval(function(){setMarkers()},5000);
       }
 
 
       function setMarkers(){
+        while(select.firstChild){
+          select.removeChild(select.firstChild);
+        }
+        var image = {
+          url: 'nat.png',
+          scaledSize: new google.maps.Size(40, 40),
+          origin: new google.maps.Point(0, -4)
+        };
         //alle database markers setten als ze bestaan
         jsn.forEach(function(e){
+          console.log(jsn);
+          // test = document.getElementById('floating-panel');
+          // test.innerText = e[0].latitude;
+
           var lastE = e[e.length-1];
           if(typeof lastE !== 'undefined'){
             long = parseFloat(lastE.longitude);
@@ -161,7 +174,7 @@
                 var marker = new google.maps.Marker({
                   position: pos,
                   map: map,
-                  icon: 'http://maps.google.com/mapfiles/ms/micons/blue-dot.png',
+                  icon: image
                 }), infowindow = new google.maps.InfoWindow({content: jsnchild[ix].name + "'s watersensor is nat"});
               }
             }else{
@@ -172,11 +185,7 @@
                   label: jsnchild[ix].label
                 }), infowindow = new google.maps.InfoWindow({content: jsnchild[ix].name});
               }else{
-                var image = {
-                  url: 'http://maps.google.com/mapfiles/kml/paddle/blu-blank.png',
-                  // This marker is 20 pixels wide by 32 pixels high.
-                  size: new google.maps.Size(20, 32),
-                }
+
 
                 var marker = new google.maps.Marker({
                   position: pos,

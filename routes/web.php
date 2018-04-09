@@ -18,21 +18,20 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['role:parent'])->group(function(){
-  Route::post('/link', 'HomeController@link');
+  Route::post('/home/wrong_code', 'HomeController@link');
   Route::get('maps', 'HomeController@maps')->name('maps');
+  Route::get('/home', 'HomeController@index');
   // Route::get('addNameIndex', 'HomeController@addNameIndex')->name('addNameIndex');
   // Route::get('/maps/{id}', 'HomeController@maps')->name('maps');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/link', 'HomeController@firstlogin')->name('home');
 
 
 Route::middleware(['role:guard,admin'])->group(function(){
-  Route::get('/strandwacht', function () {
-      return view('welcome');
-  });
+  Route::get('/fullmap', 'GuardController@maps');
   // Route::get('/strandwacht', 'GuardController@index')->name('Strandwacht');
 });
 Route::middleware(['role:admin'])->group(function(){
-  Route::get('/admin', 'AdminController@index')->name('Admin');
+  Route::get('/adminhome', 'AdminController@index')->name('Admin');
 });

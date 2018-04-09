@@ -20,6 +20,7 @@ class CreateLinksTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('device_id');
             $table->foreign('device_id')->references('id')->on('devices');
+            $table->boolean('alert')->default(0);
             $table->timestamps();
         });
     }

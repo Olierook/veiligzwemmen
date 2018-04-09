@@ -43,6 +43,6 @@ class User extends Authenticatable
     }
 
     public function hasRole($p){
-      if ($p == 'role'){return true;};
+      if ($p == $this->role){return true;};
     }
 }
